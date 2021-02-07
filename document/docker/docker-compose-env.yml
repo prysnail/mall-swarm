@@ -46,7 +46,7 @@ services:
     environment:
       - "cluster.name=elasticsearch" #设置集群名称为elasticsearch
       - "discovery.type=single-node" #以单一节点模式启动
-      - "ES_JAVA_OPTS=-Xms512m -Xmx512m" #设置使用jvm内存大小
+      - "ES_JAVA_OPTS=-Xms512m -Xmx1024m" #设置使用jvm内存大小
     volumes:
       - /mydata/elasticsearch/plugins:/usr/share/elasticsearch/plugins #插件文件挂载
       - /mydata/elasticsearch/data:/usr/share/elasticsearch/data #数据文件挂载
@@ -94,3 +94,13 @@ services:
       - "MODE=standalone"
     ports:
       - 8848:8848
+  portainer:
+    image: portainer/portainer:1.24.1
+    restart: always
+    container_name: portainer
+    ports:
+      - 9000:9000
+      - 8000:8000
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /mydata/portainer/data:/data
